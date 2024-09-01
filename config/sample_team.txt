@@ -1,0 +1,61 @@
+Abra  
+Ability: No Ability  
+Level: 25  
+EVs: 252 HP / 252 Def / 252 SpA / 252 Spe  
+Serious Nature  
+- Seismic Toss  
+- Psychic  
+- Substitute  
+- Thunder Wave  
+
+Voltorb  
+Ability: No Ability  
+Level: 25  
+EVs: 252 HP / 252 Atk / 252 Def / 252 SpA / 252 Spe  
+Serious Nature  
+- Explosion  
+- Thunderbolt  
+- Thunder Wave  
+- Substitute  
+
+Gastly  
+Ability: No Ability  
+Level: 25  
+EVs: 252 HP / 252 Atk / 252 Def / 252 SpA / 252 Spe  
+Serious Nature  
+- Night Shade  
+- Explosion  
+- Thunderbolt  
+- Substitute  
+
+Clefairy  
+Ability: No Ability  
+Level: 25  
+EVs: 252 HP / 252 Atk / 252 Def / 252 SpA / 252 Spe  
+Serious Nature  
+- Thunder Wave  
+- Ice Beam  
+- Rest  
+- Body Slam  
+
+Geodude  
+Ability: No Ability  
+Level: 25  
+EVs: 252 HP / 252 Atk / 252 Def / 252 SpA / 252 Spe  
+Serious Nature  
+- Body Slam  
+- Earthquake  
+- Explosion  
+- Rest  
+
+Dratini  
+Ability: No Ability  
+Level: 25  
+EVs: 252 HP / 252 Atk / 252 Def / 252 SpA / 252 Spe  
+Serious Nature  
+- Dragon Rage  
+- Blizzard  
+- Thunder Wave  
+- Wrap  
+
+
