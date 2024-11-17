@@ -15,12 +15,12 @@ namespace {
  
 class FIFO {
 public:
-    FIFO() : errcode_(CreateFIFOs()) {}
+    FIFO() : errcode_() {}
 
     ~FIFO() {
         // Clean up FIFOs
-        unlink(kFifoInPath);
-        unlink(kFifoOutPath);
+        // unlink(kFifoInPath);
+        // unlink(kFifoOutPath);
     }
 
     int GetErrorCode() const {return errcode_;}
@@ -56,19 +56,25 @@ public:
         return 1;
     }
 
-    std::ifstream CreateOutputStream() const {
-        std::ifstream stream(kFifoOutPath);
+    std::ifstream CreateInputStream() const {
+        std::ifstream stream(kFifoInPath);
         if (!stream) {
             std::cerr << "Failed to open output FIFO: " << strerror(errno) << std::endl;
+        } else {
+            std::cout << "Opened output" << std::endl;
         }
 
         return stream;
     }
 
-    std::ofstream CreateInputStream() const {
-        std::ofstream stream(kFifoInPath);
-        if (!stream) {
+    std::ofstream CreateOutputStream() const {
+        std::ofstream stream;
+        std::cout << "Creating output stream.." << std::endl;
+        stream.open(kFifoOutPath, std::ofstream::app);
+        if (!stream.is_open()) {
             std::cerr << "Failed to open input FIFO: " << strerror(errno) << std::endl;
+        } else {
+            std::cout << "Opened output" << std::endl;
         }
 
         return stream;
@@ -76,17 +82,18 @@ public:
 
 private:
     // TODO: Replace status with absl statusor
+    // Note: Only the output of FIFOs are marked.
     int CreateFIFOs() {
         // Create FIFOs (named pipes)
-        if (mkfifo(kFifoInPath, 0666) == -1 || mkfifo(kFifoOutPath, 0666) == -1) {
+        if (mkfifo(kFifoOutPath, 0666) == -1) {
             std::cerr << "Failed to create FIFOs: " << strerror(errno) << std::endl;
             return 1;
         }
         return 0;
     }
 
-    static constexpr char kFifoInPath[] = "/tmp/my_fifo_in";
-    static constexpr char kFifoOutPath[] = "/tmp/my_fifo_out";
+    static constexpr char kFifoInPath[] = "/tmp/fifo_to_bot";
+    static constexpr char kFifoOutPath[] = "/tmp/fifo_from_bot";
     int errcode_ = 0;
 };
 

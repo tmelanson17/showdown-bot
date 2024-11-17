@@ -1,15 +1,26 @@
 #!/bin/bash
 
-SHOWDOWN_BINARY=/Users/tjmelanson/development/downloaded-code/pokemon-showdown/pokemon-showdown
+SHOWDOWN_BINARY="/Users/tjmelanson/development/downloaded-code/pokemon-showdown/pokemon-showdown simulate-battle"
 
-# TODO: Feed the config into the bot 
-P1_TEAM=$(cat config/sample_team_packed.txt)
-P2_TEAM=$(cat config/sample_team_packed.txt)
-FORMAT=$(cat config/format_config.json) 
+# create a temporary named pipe for input and output
+PIPE=$(mktemp -u)
+mkfifo $PIPE
+# attach it to file descriptor 3
+exec 3<>$PIPE
+echo "stdin: $PIPE"
 
-COMMAND=">start $(echo $FORMAT)
->player p1 {\"name\": \"P1\", \"team\": \"${P1_TEAM}\"}
->player p2 {\"name\": \"P1\", \"team\": \"${P2_TEAM}\"}
-"
-echo "$COMMAND"
-echo "$COMMAND" | ${SHOWDOWN_BINARY} simulate-battle
+# Don't pipe stdout for now
+#PIPEOUT=$(mktemp -u)
+#mkfifo $PIPEOUT
+#echo "stdout: $PIPEOUT"
+# exec 4<>$PIPE
+#rm $PIPEOUT
+
+
+echo "Running showdown binary"
+${SHOWDOWN_BINARY} <&3 # >&4 
+
+# unlink the named pipe
+rm $PIPE
+
+exec 3<&-
